@@ -37,6 +37,7 @@ return {
       harpoon:list():next()
     end)
 
+    -- basic telescope configuration
     local conf = require("telescope.config").values
     local function toggle_telescope(harpoon_files)
       local file_paths = {}
@@ -50,7 +51,7 @@ return {
           finder = require("telescope.finders").new_table {
             results = file_paths,
           },
-          --previewer = conf.file_previewer {},
+          previewer = conf.file_previewer {},
           sorter = conf.generic_sorter {},
         })
         :find()
