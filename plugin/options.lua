@@ -26,3 +26,5 @@ opt.formatoptions:remove "o"
 
 opt.wrap = true
 opt.linebreak = true
+
+opt.scrolloff = 7

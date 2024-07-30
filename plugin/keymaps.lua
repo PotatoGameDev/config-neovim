@@ -51,3 +51,16 @@ end)
 set("n", "<space>tt", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = 0 }, { bufnr = 0 })
 end)
+
+-- highlight yanks
+-- Create an augroup to avoid duplicate autocmds
+vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+
+-- Create the autocmd to highlight on yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = "YankHighlight",
+  pattern = "*",
+  callback = function()
+    vim.highlight.on_yank { higroup = "IncSearch", timeout = 200 }
+  end,
+})
