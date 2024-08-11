@@ -46,7 +46,6 @@ return {
             semanticTokensProvider = vim.NIL,
           },
         },
-
         clangd = {
           init_options = { clangdFileStatus = true },
 
@@ -67,6 +66,7 @@ return {
       local ensure_installed = {
         "stylua",
         "lua_ls",
+        "omnisharp",
       }
 
       vim.list_extend(ensure_installed, servers_to_install)

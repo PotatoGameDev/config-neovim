@@ -24,15 +24,17 @@ pcall(require("telescope").load_extension, "ui-select")
 
 local builtin = require "telescope.builtin"
 
-vim.keymap.set("n", "<space>fd", builtin.find_files)
-vim.keymap.set("n", "<space>ft", builtin.git_files)
-vim.keymap.set("n", "<space>fh", builtin.help_tags)
-vim.keymap.set("n", "<space>fg", builtin.live_grep)
-vim.keymap.set("n", "<space>/", builtin.current_buffer_fuzzy_find)
+--TODO: Maybe change f to t like telescope?
+--Also, leader instead of space.
+vim.keymap.set("n", "<leader>td", builtin.find_files)
+vim.keymap.set("n", "<leader>tt", builtin.git_files)
+vim.keymap.set("n", "<leader>th", builtin.help_tags)
+vim.keymap.set("n", "<leader>tg", builtin.live_grep)
+vim.keymap.set("n", "<leader>/", builtin.current_buffer_fuzzy_find)
 
-vim.keymap.set("n", "<space>gw", builtin.grep_string)
+vim.keymap.set("n", "<leader>tw", builtin.grep_string)
 
-vim.keymap.set("n", "<space>fa", function()
+vim.keymap.set("n", "<leader>ta", function()
   ---@diagnostic disable-next-line: param-type-mismatch
   builtin.find_files { cwd = vim.fs.joinpath(vim.fn.stdpath "data", "lazy") }
 end)
