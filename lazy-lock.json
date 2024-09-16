@@ -53,6 +53,7 @@
   "rose-pine": { "branch": "main", "commit": "1e45cea06db866143930a6df96fc66bf715c866c" },
   "solarized-osaka.nvim": { "branch": "main", "commit": "126d394c0c979a99206214a2b6b8c86e456c9c0f" },
   "standard.vim": { "branch": "master", "commit": "b333ef9a9cf6cf66536deda017a542843613fa75" },
+  "supermaven-nvim": { "branch": "main", "commit": "338e1597b5575f3728865ddd5834fdba3d66b05f" },
   "sweetie.nvim": { "branch": "master", "commit": "4f0dc96ea3adeeac0507eb64cb7dc70fe0ddcecf" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "cf48d4dfce44e0b9a2e19a008d6ec6ea6f01a83b" },
   "telescope.nvim": { "branch": "0.1.x", "commit": "a0bbec21143c7bc5f8bb02e0005fa0b982edc026" },
