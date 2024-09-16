@@ -22,6 +22,8 @@ return {
         capabilities = require("cmp_nvim_lsp").default_capabilities()
       end
 
+      local custom_dotnet_path = "/home/potato/.dotnet"
+
       local lspconfig = require "lspconfig"
 
       local servers = {
@@ -50,6 +52,35 @@ return {
           init_options = { clangdFileStatus = true },
 
           filetypes = { "c", "cpp", "h" },
+        },
+        --[[
+        gdscript = {
+          flags = { debounce_text_changes = 150 },
+          filetypes = { "gd", "gdscript", "gdscript3" },
+        },
+--]]
+
+        omnisharp = {
+
+          cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+          filetypes = { "cs" },
+          root_dir = lspconfig.util.root_pattern(".git", "*.sln", "*.csproj"),
+          capabilities = require("cmp_nvim_lsp").default_capabilities(),
+          settings = {
+            omnisharp = {
+              useModernNet = true, -- Use this if you're working with .NET 5+ projects
+              enableRoslynAnalyzers = true,
+              organizeImportsOnFormat = true,
+              enableEditorConfigSupport = true,
+            },
+          },
+          on_new_config = function(new_config, new_root_dir)
+            -- Ensure the correct PATH is set
+            if not new_config.cmd_env then
+              new_config.cmd_env = {}
+            end
+            new_config.cmd_env.PATH = custom_dotnet_path .. ":" .. vim.env.PATH
+          end,
         },
       }
 
