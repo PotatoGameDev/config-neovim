@@ -27,3 +27,13 @@ require("lazy").setup({ import = "custom/plugins" }, {
     notify = false,
   },
 })
+
+-- Ensure filetype is detected when switching buffers
+vim.cmd [[
+  autocmd BufWinEnter * if &ft == '' | filetype detect | endif
+]]
+
+-- Ensure syntax highlighting is always enabled
+vim.cmd [[
+  autocmd BufWinEnter * syntax enable
+]]
