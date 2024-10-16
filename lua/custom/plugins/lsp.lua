@@ -176,8 +176,28 @@ return {
         end,
       })
 
+      -- Setup for lsp_lines and Neovim diagnostics
       require("lsp_lines").setup()
-      vim.diagnostic.config { virtual_text = false }
+
+      -- Disable virtual text from Neovim's built-in LSP
+      vim.diagnostic.config {
+        virtual_text = false, -- Disable inline diagnostics from Neovim
+        signs = true, -- Keep the signs in the gutter
+        underline = true,
+        update_in_insert = false,
+        severity_sort = true,
+      }
+
+      -- Show diagnostics in a floating window on hover
+      vim.api.nvim_create_autocmd("CursorHold", {
+        pattern = "*",
+        callback = function()
+          vim.diagnostic.open_float(nil, { focusable = false })
+        end,
+      })
+
+      -- Optionally toggle lsp_lines on/off
+      vim.keymap.set("", "<Leader>l", require("lsp_lines").toggle, { desc = "Toggle lsp_lines" })
     end,
   },
 }
