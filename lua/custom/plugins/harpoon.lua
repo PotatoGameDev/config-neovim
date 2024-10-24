@@ -12,7 +12,7 @@ return {
       harpoon:list():add()
     end)
 
-    vim.keymap.set("n", "<C-e>", function()
+    vim.keymap.set("n", "<C-A-e>", function()
       harpoon.ui:toggle_quick_menu(harpoon:list())
     end)
 
