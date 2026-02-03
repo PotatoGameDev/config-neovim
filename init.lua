@@ -37,3 +37,5 @@ vim.cmd [[
 vim.cmd [[
   autocmd BufWinEnter * syntax enable
 ]]
+
+vim.opt.backupcopy = "yes"

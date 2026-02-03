@@ -58,7 +58,7 @@ return {
       vim.keymap.set("n", "<F3>", dap.step_over)
       vim.keymap.set("n", "<F4>", dap.step_out)
       vim.keymap.set("n", "<F5>", dap.step_back)
-      vim.keymap.set("n", "<F13>", dap.restart)
+      vim.keymap.set("n", "<F10>", dap.restart)
 
       dap.listeners.before.attach.dapui_config = function()
         ui.open()
@@ -96,6 +96,52 @@ return {
         host = "127.0.0.1",
         port = "6006",
       }
+
+      -- Unity Debug
+
+      dap.adapters.unity = function(clbk, config)
+        -- options passed to unity-debug-adapter.exe
+
+        -- when connecting to a running Unity Editor, the TCP address of the listening
+        -- connection is localhost
+        -- on Linux, use: ss -tlp | grep 'Unity' to find the debugger connection
+        vim.ui.input({ prompt = "address [127.0.0.1]: ", default = "127.0.0.1" }, function(result)
+          config.address = result
+        end)
+        -- then prompt the user for which port the DA should connect to
+        vim.ui.input({ prompt = "port: " }, function(result)
+          config.port = tonumber(result)
+        end)
+        clbk {
+          type = "executable",
+          -- adjust mono path - do NOT use Unity's integrated MonoBleedingEdge
+          command = "mono",
+          -- adjust unity-debug-adapter.exe path
+          args = {
+            -- get and install Unity debug adapter from:
+            -- https://github.com/walcht/unity-dap
+            -- then adjust the following path to where the installed executable is
+            "/home/potato/Projects/other/unity-dap/unity-debug-adapter/obj/Release/unity-debug-adapter.exe",
+            -- optional log level argument: trace | debug | info | warn | error | critical | none
+            "--log-level=error",
+            -- optional path to log file (logs to stderr in case this is not provided)
+            -- "--log-file=<path_to_log_file_txt>",
+          },
+        }
+      end
+
+      -- make sure NOT to override other C# DAP configurations
+      if dap.configurations.cs == nil then
+        dap.configurations.cs = {}
+      end
+
+      table.insert(dap.configurations.cs, {
+        name = "Unity Editor/Player Instance [Mono]",
+        type = "unity",
+        request = "attach",
+      })
+
+      -- End Unity Debug
     end,
   },
 }

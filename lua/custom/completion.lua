@@ -33,7 +33,7 @@ cmp.setup {
   -- Enable luasnip to handle snippet expansion for nvim-cmp
   snippet = {
     expand = function(args)
-      vim.snippet.expand(args.body)
+      luasnip.expand(args.body)
     end,
   },
   formatting = {

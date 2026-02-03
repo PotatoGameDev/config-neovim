@@ -35,7 +35,7 @@ return {
 
       local custom_dotnet_path = "/home/potato/.dotnet"
 
-      local lspconfig = require "lspconfig"
+      --local lspconfig = require("lspconfig")
 
       local servers = {
         bashls = true,
@@ -70,29 +70,6 @@ return {
           filetypes = { "gd", "gdscript", "gdscript3" },
         },
 --]]
-
-        omnisharp = {
-
-          cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
-          filetypes = { "cs" },
-          root_dir = lspconfig.util.root_pattern(".git", "*.sln", "*.csproj"),
-          capabilities = require("cmp_nvim_lsp").default_capabilities(),
-          settings = {
-            omnisharp = {
-              useModernNet = true, -- Use this if you're working with .NET 5+ projects
-              enableRoslynAnalyzers = true,
-              organizeImportsOnFormat = true,
-              enableEditorConfigSupport = true,
-            },
-          },
-          on_new_config = function(new_config, new_root_dir)
-            -- Ensure the correct PATH is set
-            if not new_config.cmd_env then
-              new_config.cmd_env = {}
-            end
-            new_config.cmd_env.PATH = custom_dotnet_path .. ":" .. vim.env.PATH
-          end,
-        },
       }
 
       local servers_to_install = vim.tbl_filter(function(key)
@@ -104,11 +81,12 @@ return {
         end
       end, vim.tbl_keys(servers))
 
+      require "custom.roslyn"
+
       require("mason").setup()
       local ensure_installed = {
         "stylua",
         "lua_ls",
-        "omnisharp",
       }
 
       vim.list_extend(ensure_installed, servers_to_install)
@@ -122,7 +100,9 @@ return {
           capabilities = capabilities,
         }, config)
 
-        lspconfig[name].setup(config)
+        --lspconfig[name].setup(config)
+        vim.lsp.config[name] = vim.tbl_deep_extend("force", vim.lsp.config[name] or {}, config)
+        vim.lsp.enable(name)
       end
 
       local disable_semantic_tokens = {
