@@ -6,7 +6,7 @@ M.setup = function()
   }
 
   local group = vim.api.nvim_create_augroup("custom-treesitter", { clear = true })
-  local syntax_on = { "c_sharp", "go" }
+  local syntax_on = { "c_sharp", "go", "python" }
 
   vim.api.nvim_create_autocmd("FileType", {
     group = group,

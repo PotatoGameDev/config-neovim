@@ -39,6 +39,7 @@ return {
 
       local servers = {
         bashls = true,
+        --[[
         gopls = {
           settings = {
             gopls = {
@@ -50,6 +51,18 @@ return {
                 functionTypeParameters = true,
                 parameterNames = true,
                 rangeVariableTypes = true,
+              },
+            },
+          },
+        },
+        --]]
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                typeCheckingMode = "basic",
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
               },
             },
           },
@@ -70,6 +83,8 @@ return {
           filetypes = { "gd", "gdscript", "gdscript3" },
         },
 --]]
+        html = true,
+        cssls = true,
       }
 
       local servers_to_install = vim.tbl_filter(function(key)
@@ -87,6 +102,9 @@ return {
       local ensure_installed = {
         "stylua",
         "lua_ls",
+        "pyright",
+        "html",
+        "css-lsp",
       }
 
       vim.list_extend(ensure_installed, servers_to_install)
@@ -154,6 +172,8 @@ return {
       require("conform").setup {
         formatters_by_ft = {
           lua = { "stylua" },
+          html = { "prettierd" },
+          css = { "prettierd" },
         },
       }
 
