@@ -85,6 +85,7 @@ return {
 --]]
         html = true,
         cssls = true,
+        ts_ls = true,
       }
 
       local servers_to_install = vim.tbl_filter(function(key)
@@ -105,6 +106,7 @@ return {
         "pyright",
         "html",
         "css-lsp",
+        "typescript-language-server",
       }
 
       vim.list_extend(ensure_installed, servers_to_install)
