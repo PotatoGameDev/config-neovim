@@ -134,6 +134,25 @@ local roslyn_handlers = {
   end,
 }
 
+-- Compute capabilities BEFORE constructing the config
+local cmp_nvim_lsp = require "cmp_nvim_lsp"
+local capabilities = cmp_nvim_lsp.default_capabilities()
+
+capabilities.textDocument = {
+  diagnostic = {
+    dynamicRegistration = true,
+  },
+  completion = {
+    completionItem = {
+      snippetSupport = true,
+      deprecatedSupport = true,
+      preselectSupport = true,
+      insertReplaceSupport = true,
+    },
+  },
+}
+-- END: Roslyn LS capabilities
+
 ---@type vim.lsp.ClientConfig
 local roslyn_ls_config = {
   name = "roslyn_ls",
@@ -211,33 +230,9 @@ local roslyn_ls_config = {
   },
 }
 
--- then add Roslyn LS to core Neovim LSP and enable it
+-- then add Roslyn LS to core Neovim LSP config
 vim.lsp.config("roslyn_ls", roslyn_ls_config)
-vim.lsp.enable "roslyn_ls"
-
--- END: Roslyn LS configuration
---
---
---
--- This line ensures nvim-cmp uses these capabilities
-local cmp_nvim_lsp = require "cmp_nvim_lsp"
-capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
-
-capabilities.textDocument = {
-  diagnostic = {
-    dynamicRegistration = true,
-  },
-  completion = {
-    completionItem = {
-      snippetSupport = true,
-      deprecatedSupport = true,
-      preselectSupport = true,
-      insertReplaceSupport = true,
-    },
-  },
-}
--- END: Roslyn LS capabilities
-vim.lsp.config("roslyn_ls", roslyn_ls_config)
+-- NOTE: enable is deferred to M.enable() via cs.lua guard
 
 function M.enable()
   vim.lsp.enable "roslyn_ls"

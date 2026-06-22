@@ -33,8 +33,6 @@ return {
         capabilities = require("cmp_nvim_lsp").default_capabilities()
       end
 
-      local custom_dotnet_path = "/home/potato/.dotnet"
-
       --local lspconfig = require("lspconfig")
 
       local servers = {
@@ -210,7 +208,7 @@ return {
       })
 
       -- Optionally toggle lsp_lines on/off
-      vim.keymap.set("", "<Leader>l", require("lsp_lines").toggle, { desc = "Toggle lsp_lines" })
+      vim.keymap.set("n", "<Leader>l", require("lsp_lines").toggle, { desc = "Toggle lsp_lines" })
     end,
   },
 }

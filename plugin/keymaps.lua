@@ -36,7 +36,8 @@ set("n", "<M-j>", function()
   if vim.opt.diff:get() then
     vim.cmd [[normal! ]c]]
   else
-    vim.cmd [[m .+1<CR>==]]
+    vim.cmd('m .+1')
+    vim.cmd('normal! ==')
   end
 end)
 
@@ -44,7 +45,8 @@ set("n", "<M-k>", function()
   if vim.opt.diff:get() then
     vim.cmd [[normal! [c]]
   else
-    vim.cmd [[m .-2<CR>==]]
+    vim.cmd('m .-2')
+    vim.cmd('normal! ==')
   end
 end)
 

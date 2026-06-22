@@ -21,13 +21,7 @@ cmp.setup {
   mapping = {
     ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
     ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
-    ["<C-y>"] = cmp.mapping(
-      cmp.mapping.confirm {
-        behavior = cmp.ConfirmBehavior.Insert,
-        select = true,
-      },
-      { "i", "c" }
-    ),
+    -- C-y falls through to native Neovim (scroll up / confirm)
   },
 
   -- Enable luasnip to handle snippet expansion for nvim-cmp

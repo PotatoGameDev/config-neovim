@@ -2,11 +2,11 @@ local M = {}
 
 M.setup = function()
   require("nvim-treesitter").setup {
-    ensure_install = { "core", "stable" },
+    ensure_installed = { "core", "stable" },
   }
 
   local group = vim.api.nvim_create_augroup("custom-treesitter", { clear = true })
-  local syntax_on = { "c_sharp", "go", "python" }
+  local syntax_on = { c_sharp = true, go = true, python = true }
 
   vim.api.nvim_create_autocmd("FileType", {
     group = group,

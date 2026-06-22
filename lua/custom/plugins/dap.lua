@@ -15,7 +15,7 @@ return {
       require("dapui").setup()
       require("dap-go").setup()
 
-      require("flutter-tools").setup {}
+      -- flutter-tools is configured in lua/custom/plugins/dart.lua
 
       --[[
       require("nvim-dap-virtual-text").setup {
@@ -94,7 +94,7 @@ return {
       dap.adapters.godot = {
         type = "server",
         host = "127.0.0.1",
-        port = "6006",
+        port = 6006,
       }
 
       -- Unity Debug
