@@ -69,6 +69,20 @@ return {
           server_capabilities = {
             semanticTokensProvider = vim.NIL,
           },
+          settings = {
+            Lua = {
+              workspace = {
+                library = {
+                  vim.fn.expand "~/PlaydateSDK/CoreLibs",
+                },
+                checkThirdParty = false,
+              },
+
+              diagnostics = {
+                globals = { "playdate" },
+              },
+            },
+          },
         },
         clangd = {
           init_options = { clangdFileStatus = true },

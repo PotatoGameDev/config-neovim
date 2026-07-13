@@ -2,8 +2,10 @@ local M = {}
 
 M.setup = function()
   require("nvim-treesitter").setup {
-    ensure_installed = { "core", "stable" },
+    ensure_installed = { "core", "stable", "hlsl" },
   }
+
+  local group = vim.api.nvim_create_augroup("custom-treesitter", { clear = true })
 
   local group = vim.api.nvim_create_augroup("custom-treesitter", { clear = true })
   local syntax_on = { c_sharp = true, go = true, python = true }

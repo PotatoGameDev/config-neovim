@@ -5,12 +5,13 @@ require("telescope").setup {
     wrap_results = true,
   },
 
+  history = {
+    path = vim.fs.joinpath(data, "telescope_history.sqlite3"),
+    limit = 100,
+  },
+
   extensions = {
     fzf = {},
-    history = {
-      path = vim.fs.joinpath(data, "telescope_history.sqlite3"),
-      limit = 100,
-    },
     ["ui-select"] = {
       require("telescope.themes").get_dropdown {},
     },
