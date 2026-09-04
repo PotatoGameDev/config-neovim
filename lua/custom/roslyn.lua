@@ -61,8 +61,19 @@ local function project_root_dir_discovery(bufnr, cb)
       end)
     end
 
-    -- TODO: add Unity project root discovery heuristic in case the first opened C#
-    -- script is directly part of the project (e.g., opening a file from Library)
+    -- Unity: no .sln/.csproj may exist yet (the editor generates them on the
+    -- first open and they are not committed). Fall back to the Unity project
+    -- root, which is the directory containing the `Assets`, `ProjectSettings`
+    -- and `Packages` folders. Scripts live under Assets/, so walking up finds
+    -- this even when a script is opened directly.
+    if not root_dir then
+      root_dir = vim.fs.root(bufnr, function(fname, _)
+        return vim.fn.isdirectory(vim.fs.joinpath(fname, "Assets")) == 1
+          and vim.fn.isdirectory(vim.fs.joinpath(fname, "ProjectSettings")) == 1
+          and vim.fn.isdirectory(vim.fs.joinpath(fname, "Packages")) == 1
+      end)
+    end
+
     -- TODO: add user-input method for entering the project root manually
 
     if root_dir then

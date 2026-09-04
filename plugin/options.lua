@@ -28,3 +28,5 @@ opt.wrap = true
 opt.linebreak = true
 
 opt.scrolloff = 7
+
+opt.colorcolumn = "80"
